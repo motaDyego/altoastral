@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
+     
+      <Button
+         android:id="@+id/botaoCadastrar"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBottom="@+id/BotaoEntrar"
+         android:layout_alignRight="@+id/editTextSenha"
+         android:layout_alignTop="@+id/BotaoEntrar"
+         android:onClick="onClickCadastrar"
+         android:padding="5dp"
+         android:text="@string/cadastrar_login" />
+
+     <TextView
+         android:id="@+id/textoEsqueciSenha"
+         android:layout_width="wrap_content"
+         android:layout_height="20dp"
+         android:layout_alignLeft="@+id/BotaoEntrar"
+         android:layout_alignParentBottom="true"
+         android:layout_marginBottom="72dp"
+         android:text="@string/esqueci_login"
+         android:textColor="#0a22de"
+         android:textSize="10sp" />
+
+     <Button
+         android:id="@+id/BotaoEntrar"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_above="@+id/textoEsqueciSenha"
+         android:layout_alignLeft="@+id/editTextSenha"
+         android:layout_marginBottom="18dp"
+         android:onClick="onClickEntrar"
+         android:padding="5dp"
+         android:text="@string/entrar_login" />
+
+     <EditText
+         android:id="@+id/editTextLogin"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_above="@+id/editTextSenha"
+         android:layout_alignLeft="@+id/editTextSenha"
+         android:layout_marginBottom="22dp"
+         android:ems="10"
+         android:hint="Digite seu login"
+         android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/editTextSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/botaoCadastrar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
+        android:ems="10"
+        android:hint="Digite sua senha"
+        android:inputType="textPassword">
+
+        <requestFocus />
+    </EditText>
+
+    <ImageView
+         android:id="@+id/imageViewLogo"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentTop="true"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="32dp"
+         android:src="@drawable/logo2" />
+
+     <TextView
+         android:id="@+id/textViewBemVindo"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_above="@+id/editTextLogin"
+         android:layout_centerHorizontal="true"
+         android:layout_marginBottom="42dp"
+         android:text="@string/welcome"
+         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

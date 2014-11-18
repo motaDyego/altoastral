@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff">
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/logo2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usuario_cadastro"
+        android:id="@+id/tvUsuario"
+        android:layout_marginLeft="22dp"
+        android:layout_centerVertical="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etUsuario"
+        android:ems="12"
+        android:hint="Digite seu nome de usuário"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/tvUsuario"
+        android:layout_toEndOf="@+id/tvUsuario" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/senha_cadastro"
+        android:id="@+id/tvSenha"
+        android:layout_below="@+id/etUsuario"
+        android:layout_alignLeft="@+id/tvUsuario"
+        android:layout_alignStart="@+id/tvUsuario"
+        android:layout_marginTop="50dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etSenha"
+        android:layout_alignBottom="@+id/tvSenha"
+        android:layout_alignLeft="@+id/etUsuario"
+        android:layout_alignStart="@+id/etUsuario"
+        android:ems="12"
+        android:hint="Digite uma senha"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/salvar_cadastro"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="49dp"
+        android:onClick="onClickSalvar"
+        />
+
+</RelativeLayout>
