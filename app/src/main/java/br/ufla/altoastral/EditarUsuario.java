@@ -1,12 +1,19 @@
 package br.ufla.altoastral;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 import br.ufla.altoastral.R;
 
@@ -36,6 +43,7 @@ public class EditarUsuario extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, Configuracao.class));
             return true;
         }
 
@@ -52,6 +60,56 @@ public class EditarUsuario extends Activity {
     }
 
     public void onClickEditar(View v){
-        funcaoNaoImplementada();
+        ConexaoAssincrona con = new ConexaoAssincrona();
+        JSONObject retorno = null;
+        EditText edtSenhaAtual;
+        EditText edtSenhaNova;
+        //JSONObject jsonEnviado = null;
+        try {
+            edtSenhaAtual = (EditText) findViewById(R.id.etSenhaAtual);
+            edtSenhaNova = (EditText) findViewById(R.id.etSenha);
+
+            con.mensagemAEnviar = new JSONObject();
+            con.context = this.getApplicationContext();
+            con.putRequest = true;
+            con.destino = "usuario/update";
+            con.mensagemAEnviar.put("senhaAtual", edtSenhaAtual.getText().toString());
+            con.mensagemAEnviar.put("senhaNova", edtSenhaNova.getText().toString());
+            /* Recupera o token para enviar na requisição */
+            Intent recebido = getIntent();
+            Bundle dados = recebido.getExtras();
+            if(dados != null) {
+                String tokenAcesso = dados.getString("token");
+                System.out.println("*************dados NOT null*************\n token: "+"\""+tokenAcesso+"\"");
+                con.mensagemAEnviar.put("token", "\""+tokenAcesso+"\"");
+                System.out.println("gerou o JSON da requisição");
+            }else{
+                System.out.println("dados null*************");
+            }
+
+            retorno = (JSONObject) con.execute().get();
+
+            /* Verificamos o status da resposta */
+            if(con.statusCode == 200) {
+                Toast toast = Toast.makeText(getBaseContext(), retorno.get("mensagem").toString(), Toast.LENGTH_LONG);
+                toast.show();
+                finish();
+            }else{
+                AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+                alerta.setTitle("Erro");
+                //define a mensagem
+                alerta.setMessage("Erro ao criar usuário: "+retorno.toString());
+                alerta.create().show();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception ex){
+            System.out.println("---Erro geral----");
+            ex.printStackTrace();
+        }
     }
 }

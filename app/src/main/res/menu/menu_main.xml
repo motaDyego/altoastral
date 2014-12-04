@@ -3,4 +3,6 @@
     tools:context="br.ufla.altoastral.MainActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/atualizar_senha" android:title="@string/atualizar_senha"
+        android:orderInCategory="100" android:showAsAction="never" />
 </menu>

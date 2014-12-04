@@ -21,15 +21,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView texto = (TextView) findViewById(R.id.tvPerfil);
-        texto.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                editarConta(v);
-
-            }
-        });
     }
 
 
@@ -49,7 +40,16 @@ public class MainActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, Configuracao.class));
             return true;
+        }else if(id == R.id.atualizar_senha){
+            Intent recebido = getIntent();
+            Intent intent = new Intent(this, EditarUsuario.class);
+            Bundle dados = recebido.getExtras();
+            //String tokenMain = dados.getString("token");
+            //System.out.println("token no main: "+tokenMain);
+            intent.putExtras(dados);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
