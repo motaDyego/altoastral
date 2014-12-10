@@ -78,14 +78,27 @@ public class login extends Activity {
 
             /* Verificamos o status da resposta */
             if(con.statusCode == 200) {
-                Toast toast = Toast.makeText(getBaseContext(), retorno.get("mensagem").toString(), Toast.LENGTH_LONG);
+                String tokenAcesso = retorno.get("token").toString();
+                System.out.println("tokenAcesso "+tokenAcesso);
+
+                /* Iniciamos o serviço que verifica a chegada de novos post a serem respondidos */
+                Intent itService = new Intent("CHECA_POST");
+                itService.putExtra("token",tokenAcesso);
+                itService.putExtra("usuario",edtUsuario.getText().toString());
+                startService(itService);
+
+                /* Informamos ao usuário que o login foi efetuado com sucesso */
+                Toast toast = Toast.makeText(getBaseContext(), retorno.get("mensagem").toString(), Toast.LENGTH_SHORT);
                 toast.show();
                 Intent intent = new Intent(this, MainActivity.class);
                 Bundle dados = new Bundle();
-                String tokenAcesso = retorno.get("token").toString();
-                System.out.println("tokenAcesso "+tokenAcesso);
+
+                /* Transferimos o token para a próxima activity */
                 dados.putString("token", tokenAcesso);
+                dados.putString("usuario", edtUsuario.getText().toString());
                 intent.putExtras(dados);
+
+                /* Inivicamos a MainActivity */
                 startActivity(intent);
             }else{
                 AlertDialog.Builder alerta = new AlertDialog.Builder(this);

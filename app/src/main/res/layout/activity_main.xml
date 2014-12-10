@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#ffffff">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvUsuario"
+        android:text="Usuário:"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvUsuarioLogado"
+        android:text=" "
+        android:layout_below="@+id/tvUsuario"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"/>
 
     <ImageView
         android:id="@+id/imageViewLogo"
@@ -17,49 +37,16 @@
         android:src="@drawable/logo2" />
 
 
-    <ImageView
-        android:id="@+id/emotionTriste"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:onClick="onClickTriste"
-        android:src="@drawable/emotion_triste"
-        android:layout_above="@+id/imageView2"
-        android:layout_toRightOf="@+id/imageViewLogo"
-        android:layout_toEndOf="@+id/imageViewLogo" />
-
-    <ImageView
-        android:id="@+id/emotionFeliz"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_above="@+id/emotionTriste"
-        android:layout_toRightOf="@+id/emotionTriste"
-        android:onClick="onClickFeliz"
-        android:src="@drawable/emotion_feliz" />
-
-    <ImageView
-        android:id="@+id/emotionBravo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/emotionTriste"
-        android:layout_toRightOf="@+id/imageView2"
-        android:onClick="onClickFeliz"
-        android:src="@drawable/bravo" />
-
     <TextView
-        android:id="@+id/verPedidosConselho"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:text="@string/welcome"
+        android:gravity="center"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/imageViewLogo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:clickable="true"
-        android:onClick="onClickPedidosAjuda"
-        android:text="você possui 2 pedidos de ajuda. Clique para ajuda-los!"
-        android:textColor="#0a22de"
-        android:textSize="15sp"
-        android:maxLines="2"
-        android:singleLine="false"
-        />
+        android:textStyle="bold"
+        android:textColor="#105498" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -70,5 +57,31 @@
         android:contentDescription="avatar"
         android:onClick="onClickTriste"
         android:src="@drawable/avatar2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="Poste seu sentimento"
+        android:ems="10"
+        android:id="@+id/dtPostSentimento"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="30dp"
+        android:scrollbars="vertical"
+        android:autoText="false" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bt_postar"
+        android:id="@+id/button2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="45dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:onClick="postarSentimento" />
 
 </RelativeLayout>

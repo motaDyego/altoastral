@@ -71,14 +71,4 @@
          android:layout_marginTop="32dp"
          android:src="@drawable/logo2" />
 
-     <TextView
-         android:id="@+id/textViewBemVindo"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_above="@+id/editTextLogin"
-         android:layout_centerHorizontal="true"
-         android:layout_marginBottom="42dp"
-         android:text="@string/welcome"
-         android:textAppearance="?android:attr/textAppearanceMedium" />
-
 </RelativeLayout>

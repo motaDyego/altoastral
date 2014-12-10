@@ -8,10 +8,9 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_alto_astral2"
-        android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="br.ufla.altoastral.login"
+            android:name=".login"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,21 +19,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="br.ufla.altoastral.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name="br.ufla.altoastral.CadastroUsuario"
+            android:name=".CadastroUsuario"
             android:label="@string/title_activity_cadastro_usuario" >
         </activity>
         <activity
-            android:name="br.ufla.altoastral.EditarUsuario"
+            android:name=".EditarUsuario"
             android:label="@string/title_activity_editar_usuario" >
         </activity>
         <activity
             android:name=".Configuracao"
             android:label="@string/title_activity_configuracao" >
         </activity>
+        <activity
+            android:name=".RespostaSentimento"
+            android:label="@string/title_activity_resposta_sentimento" >
+        </activity>
+        <service android:name="ChecaPost" android:label="ChecaPost" android:exported="false">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="CHECA_POST"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

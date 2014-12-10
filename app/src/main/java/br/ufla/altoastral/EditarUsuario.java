@@ -45,6 +45,9 @@ public class EditarUsuario extends Activity {
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, Configuracao.class));
             return true;
+        }else if(id == R.id.logout){
+            startActivity(new Intent(this, login.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -82,7 +85,7 @@ public class EditarUsuario extends Activity {
                 String tokenAcesso = dados.getString("token");
                 System.out.println("*************dados NOT null*************\n token: "+"\""+tokenAcesso+"\"");
                 con.mensagemAEnviar.put("token", "\""+tokenAcesso+"\"");
-                System.out.println("gerou o JSON da requisição");
+                System.out.println("*************gerou o JSON da requisição*************");
             }else{
                 System.out.println("dados null*************");
             }

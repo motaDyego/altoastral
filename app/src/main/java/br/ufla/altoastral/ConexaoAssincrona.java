@@ -8,6 +8,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
@@ -47,12 +49,12 @@ public class ConexaoAssincrona extends AsyncTask {
 
         try {
             /* Obtem o IP e a porta da requisição */
-            SharedPreferences preference = context.getSharedPreferences("prefConfig",Context.MODE_PRIVATE);
+            SharedPreferences preference = context.getSharedPreferences("prefConfig", Context.MODE_PRIVATE);
             ip = preference.getString("ip", "");
             porta = preference.getString("porta", "");
 
             /* Monta a requisição PUT*/
-            if(putRequest) {
+            if (putRequest) {
                 put = new HttpPut("http://" + ip + ":" + porta + "/altoastral/" + destino);
                 StringEntity se = new StringEntity(mensagemAEnviar.toString());
                 se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
@@ -60,8 +62,9 @@ public class ConexaoAssincrona extends AsyncTask {
                 put.setHeader("Origin", "http://10.1.1.5");
                 /* Executando o request */
                 response = client.execute(put);
+
             /* Monta requisição POST */
-            }else {
+            } else {
                 HttpPost post = new HttpPost("http://" + ip + ":" + porta + "/altoastral/" + destino);
                 StringEntity se = new StringEntity(mensagemAEnviar.toString());
                 se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
@@ -71,15 +74,32 @@ public class ConexaoAssincrona extends AsyncTask {
                 response = client.execute(post);
             }
 
-            if(response!=null){
+            if (response != null) {
                 statusCode = response.getStatusLine().getStatusCode();
                 response.getEntity().getContent().read(buffer);
-                System.out.println("buffer: "+buffer);
+                System.out.println("buffer: " + new String(buffer));
                 retorno = new JSONObject(new String(buffer));
-                System.out.println("json: "+retorno);
+                System.out.println("json: " + retorno);
 
             }
-
+        }catch (ConnectTimeoutException cte) {
+            cte.printStackTrace();
+            statusCode = 500;
+            retorno = new JSONObject();
+            try {
+                retorno.put("error", "Erro ao conectar ao ip: " + ip);
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
+        }catch (HttpHostConnectException htce){
+            htce.printStackTrace();
+            statusCode = 500;
+            retorno = new JSONObject();
+            try {
+                retorno.put("error", "Erro ao conectar ao servidor, verifique sua conexão");
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
         } catch(Exception e) {
             e.printStackTrace();
         }

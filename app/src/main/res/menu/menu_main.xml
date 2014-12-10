@@ -5,4 +5,6 @@
         android:orderInCategory="100" android:showAsAction="never" />
     <item android:id="@+id/atualizar_senha" android:title="@string/atualizar_senha"
         android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/logout" android:title="@string/logout"
+        android:orderInCategory="100" android:showAsAction="never" />
 </menu>

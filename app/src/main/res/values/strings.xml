@@ -4,7 +4,7 @@
     <string name="app_name">AltoAstral</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Configurar</string>
-    <string name="welcome">Seja bem vindo!</string>
+    <string name="welcome">Seja bem vindo ao\nAlto Astral!</string>
     <string name="idade">Idade: </string>
     <string name="usuario_cadastro">Usuário: </string>
     <string name="senha_cadastro">Senha: </string>
@@ -15,11 +15,14 @@
     <string name="conta_main"> Conta </string>
     <string name="senhaAtual_editar">Senha Atual: </string>
     <string name="senhaNova_editar">Nova Senha: </string>
+    <string name="logout">Sair</string>
+    <string name="bt_postar">Postar</string>
     <string name="title_activity_main">Home</string>
     <string name="title_activity_cadastro_usuario">Cadastro Usuario</string>
     <string name="title_activity_editar_conta">Editar Conta</string>
     <string name="title_activity_editar_usuario">Editar Usuario</string>
     <string name="title_activity_configuracao">Configurações</string>
     <string name="atualizar_senha">Atualizar senha</string>
+    <string name="title_activity_resposta_sentimento">Resposta Sentimento</string>
 
 </resources>

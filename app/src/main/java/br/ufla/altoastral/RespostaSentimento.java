@@ -1,16 +1,11 @@
 package br.ufla.altoastral;
 
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,26 +18,28 @@ import java.util.concurrent.ExecutionException;
 
 import br.ufla.altoastral.R;
 
-
-public class MainActivity extends Activity {
+public class RespostaSentimento extends Activity {
 
     Intent recebido = null;
     Bundle dados = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_resposta_sentimento);
+
         recebido = getIntent();
         dados = recebido.getExtras();
         TextView usuario = (TextView) findViewById(R.id.tvUsuarioLogado);
         usuario.setText(dados.getString("usuario").toString());
+        EditText txtPost = (EditText) findViewById(R.id.edtTextoPost);
+        txtPost.setText(dados.getString("texto").toString());
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_resposta_sentimento, menu);
         return true;
     }
 
@@ -55,84 +52,35 @@ public class MainActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this, Configuracao.class));
-            return true;
-        }else if(id == R.id.atualizar_senha){
-            Intent intent = new Intent(this, EditarUsuario.class);
-            //String tokenMain = dados.getString("token");
-            //System.out.println("token no main: "+tokenMain);
-            intent.putExtras(dados);
-            startActivity(intent);
-            return true;
-        }else if(id == R.id.logout){
-            Intent itService = new Intent("CHECA_POST");
-            stopService(itService);
-            startActivity(new Intent(this, login.class));
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClickLogo (View view) {
-        startActivity(new Intent(this, MainActivity.class));
-    }
-
-
-    public void funcaoNaoImplementada() {
-        CharSequence text = "Função não implementada!";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(getBaseContext(), text, duration);
-        toast.show();
-    }
-
-    public void editarConta(View v){
-        startActivity(new Intent(this, EditarUsuario.class));
-    }
-    class CaixaDialogo extends android.app.DialogFragment
-    {
-        CharSequence textoDialogo;
-        Context context;
-
-        public CaixaDialogo(CharSequence texto, Context contexto)
-        {
-            textoDialogo = texto;
-            this.context = contexto;
-
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // TODO Auto-generated method stub
-            AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
-            builder.setTitle("Aviso");
-            builder.setMessage(textoDialogo);
-
-            return builder.create();
-        }
-    }
-
-    public void postarSentimento(View v){
+    public void responderPost(View v){
+        System.out.println("chamou o responderPost(), dados: "+dados.toString());
         ConexaoAssincrona con = new ConexaoAssincrona();
         JSONObject retorno = null;
-        EditText edtSentimento = (EditText) findViewById(R.id.dtPostSentimento);
+        EditText etResposta = (EditText) findViewById(R.id.etResposta);
 
         try {
             /* Monta o JSON da requisição */
             dados = recebido.getExtras();
             con.mensagemAEnviar = new JSONObject();
             con.context = this.getApplicationContext();
-            con.destino = "post/save";
-            con.mensagemAEnviar.put("texto", edtSentimento.getText().toString());
-            con.mensagemAEnviar.put("token", dados.getString("token").toString());
+            con.destino = "resposta/save";
+            con.mensagemAEnviar.put("texto", etResposta.getText().toString());
+            con.mensagemAEnviar.put("token", dados.getString("tkn").toString());
+            con.mensagemAEnviar.put("post", dados.getString("idPost").toString());
+            System.out.println("mensagem a enviar: "+con.mensagemAEnviar.toString());
 
             /* Executa a requisição HTTP */
             retorno = (JSONObject) con.execute().get();
 
             /* Verificamos o status da resposta */
             if(con.statusCode == 200) {
-                Toast toast = Toast.makeText(getBaseContext(), "postagem realizada com sucesso", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getBaseContext(), "resposta realizada com sucesso", Toast.LENGTH_SHORT);
                 toast.show();
             }else{
                 AlertDialog.Builder alerta = new AlertDialog.Builder(this);
