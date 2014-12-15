@@ -52,6 +52,19 @@ public class RespostaSentimento extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, Configuracao.class));
+            return true;
+        }else if(id == R.id.atualizar_senha){
+            Intent intent = new Intent(this, EditarUsuario.class);
+            //String tokenMain = dados.getString("token");
+            //System.out.println("token no main: "+tokenMain);
+            intent.putExtras(dados);
+            startActivity(intent);
+            return true;
+        }else if(id == R.id.logout){
+            Intent itService = new Intent("CHECA_POST");
+            stopService(itService);
+            startActivity(new Intent(this, login.class));
             return true;
         }
 
@@ -82,6 +95,7 @@ public class RespostaSentimento extends Activity {
             if(con.statusCode == 200) {
                 Toast toast = Toast.makeText(getBaseContext(), "resposta realizada com sucesso", Toast.LENGTH_SHORT);
                 toast.show();
+                finish();
             }else{
                 AlertDialog.Builder alerta = new AlertDialog.Builder(this);
                 alerta.setTitle("Erro");

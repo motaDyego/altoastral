@@ -13,6 +13,8 @@ import android.os.IBinder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -20,6 +22,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class ChecaPost extends Service {
 
+    public Trabalho trabalho;
     Context context;
     Bundle dados = null;
 
@@ -39,13 +42,14 @@ public class ChecaPost extends Service {
         System.out.println("startando o serviço de checagem de post");
         dados = intent.getExtras();
         context = this.getApplicationContext();
-        Trabalho trabalho = new Trabalho(startId);
+        trabalho = new Trabalho(startId);
         trabalho.start();
         return START_NOT_STICKY;
     }
 
     class Trabalho extends Thread{
         public int startId;
+        public boolean ativo = true;
 
         public Trabalho(int startId){
             this.startId = startId;
@@ -53,7 +57,7 @@ public class ChecaPost extends Service {
         public void run(){
             String token = dados.getString("token").toString();
             String usuario = dados.getString("usuario").toString();
-            for(int i=0;i<2; i++){
+            while(ativo){
                 try {
                     System.out.println("checando postagens, token: "+ dados.getString("token").toString());
                     /* Monta o JSON da requisição */
@@ -101,7 +105,10 @@ public class ChecaPost extends Service {
 
     @Override
     public void onDestroy(){
+        trabalho.ativo = false;
+        stopSelf(trabalho.startId);
         super.onDestroy();
+        System.out.println("Destruindo tread");
     }
 
     private void createNotification(String tokenAcesso, String texto, String usuario, String idPost) {
@@ -117,10 +124,10 @@ public class ChecaPost extends Service {
         dados.putString("usuario", usuario);
         dados.putString("idPost", idPost);
         System.out.println("dados createNotification: "+dados.toString());
-        System.out.println("tokenAcesso inserido em outraCoisa: "+tokenAcesso);
-        dados.putString("outraCoisa", tokenAcesso);
+        //System.out.println("tokenAcesso inserido em outraCoisa: "+tokenAcesso);
+        //dados.putString("outraCoisa", tokenAcesso);
         intent.putExtras(dados);
-        System.out.println(intent.getExtras().get("outraCoisa").toString());
+        //System.out.println(intent.getExtras().get("outraCoisa").toString());
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Build notification

@@ -75,7 +75,8 @@ public class CadastroUsuario extends Activity {
             if(con.statusCode == 200) {
                 Toast toast = Toast.makeText(getBaseContext(), "usuário "+edtUsuario.getText().toString()+" criado com sucesso!", Toast.LENGTH_LONG);
                 toast.show();
-                startActivity(new Intent(this, login.class));
+                //startActivity(new Intent(this, login.class));
+                finish();
             }else{
                 AlertDialog.Builder alerta = new AlertDialog.Builder(this);
                 alerta.setTitle("Erro");

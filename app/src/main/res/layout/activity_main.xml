@@ -33,7 +33,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:contentDescription="logo"
-        android:onClick="onClickLogo"
         android:src="@drawable/logo2" />
 
 
@@ -55,7 +54,6 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:contentDescription="avatar"
-        android:onClick="onClickTriste"
         android:src="@drawable/avatar2" />
 
     <EditText

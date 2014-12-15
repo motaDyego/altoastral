@@ -46,6 +46,8 @@ public class EditarUsuario extends Activity {
             startActivity(new Intent(this, Configuracao.class));
             return true;
         }else if(id == R.id.logout){
+            Intent itService = new Intent("CHECA_POST");
+            stopService(itService);
             startActivity(new Intent(this, login.class));
             return true;
         }
